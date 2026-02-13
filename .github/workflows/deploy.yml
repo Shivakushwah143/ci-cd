@@ -37,15 +37,6 @@ jobs:
           source: ".next/static"
           target: "~/ci-cd/.next"
 
-      - name: Upload public folder
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: "public"
-          target: "~/ci-cd"
-
       - name: Restart app on EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
