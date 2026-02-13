@@ -2,7 +2,8 @@
 
 Your PM2 status shows:
 
-nextjs-app   online   84mb
+<img width="744" height="679" alt="image" src="https://github.com/user-attachments/assets/0d4fc749-e7a0-4a84-9d61-90147a43b929" />
+
 
 
 That means:
@@ -17,7 +18,7 @@ That means:
 
 ✅ CI/CD fully functional
 
-You have successfully deployed:
+i have successfully deployed:
 
 Next.js → GitHub Actions → Standalone Build → EC2 → PM2
 
