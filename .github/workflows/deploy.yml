@@ -24,3 +24,7 @@
     key: ${{ secrets.EC2_SSH_KEY }}
     source: "public"
     target: "~/ci-cd"
+
+
+
+
