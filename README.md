@@ -33,3 +33,7 @@ jobs:
           key: ${{ secrets.PRIVATE_SSH_KEY }}
           port: 22
           script: ./deploy.sh
+
+
+
+          this might now work 
