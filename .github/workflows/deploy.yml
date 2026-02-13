@@ -1,40 +1,26 @@
-name: Deploy Next.js to EC2
+- name: Upload standalone build
+  uses: appleboy/scp-action@v0.1.7
+  with:
+    host: ${{ secrets.EC2_HOST }}
+    username: ubuntu
+    key: ${{ secrets.EC2_SSH_KEY }}
+    source: ".next/standalone"
+    target: "~/ci-cd"
 
-on:
-  push:
-    branches:
-      - main
+- name: Upload static files
+  uses: appleboy/scp-action@v0.1.7
+  with:
+    host: ${{ secrets.EC2_HOST }}
+    username: ubuntu
+    key: ${{ secrets.EC2_SSH_KEY }}
+    source: ".next/static"
+    target: "~/ci-cd/.next"
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Install deps
-        run: npm install
-
-      - name: Build
-        run: npm run build
-
-      - name: Upload build to EC2
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
-          source: ".next/standalone,.next/static,public"
-          target: "~/ci-cd"
-
-      - name: Restart app
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            cd ~/ci-cd/standalone
-            pm2 delete nextjs-app || true
-            pm2 start server.js --name nextjs-app
-            pm2 save
+- name: Upload public folder
+  uses: appleboy/scp-action@v0.1.7
+  with:
+    host: ${{ secrets.EC2_HOST }}
+    username: ubuntu
+    key: ${{ secrets.EC2_SSH_KEY }}
+    source: "public"
+    target: "~/ci-cd"
