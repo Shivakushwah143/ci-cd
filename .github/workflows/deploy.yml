@@ -26,7 +26,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           source: ".next/standalone"
-          target: "~/ci-cd"
+          target: "~/ci-cd/.next"
 
       - name: Upload static files
         uses: appleboy/scp-action@v0.1.7
@@ -44,7 +44,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd ~/ci-cd/standalone
+            cd ~/ci-cd/.next/standalone
             pm2 delete nextjs-app || true
             pm2 start server.js --name nextjs-app
             pm2 save
